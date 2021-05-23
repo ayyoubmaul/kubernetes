@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-with-replica
+  labels:
+    version: "1.0"
+  annotations:
+    description: This is my first nginx pod with replica and probe
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      version: "1.0"
+  template:
+    metadata:
+      name: nginx
+      labels:
+        version: "1.0"
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+          timeoutSeconds: 1

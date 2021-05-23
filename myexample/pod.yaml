@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: airflow
+  labels:
+    version: "1.0"
+  annotations:
+    description: This is my first pod in minikube
+spec:
+  containers:
+    - name: airflow
+      image: puckel/docker-airflow
+      ports:
+        - containerPort: 80
