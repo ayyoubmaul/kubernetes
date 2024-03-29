@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: selenium-grid
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selenium-hub
+  namespace: selenium-grid
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selenium-hub
+  template:
+    metadata:
+      labels:
+        app: selenium-hub
+    spec:
+      containers:
+      - name: selenium-hub
+        image: seleniarm/hub:4.9.1
+        ports:
+        - containerPort: 4444
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selenium-node-chrome
+  namespace: selenium-grid
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selenium-node-chrome
+  template:
+    metadata:
+      labels:
+        app: selenium-node-chrome
+    spec:
+      containers:
+      - name: selenium-node-chrome
+        image: seleniarm/node-chromium:4.9.1
+        ports:
+        - containerPort: 5555
+        env:
+        - name: HUB_PORT_4444_TCP_ADDR
+          value: selenium-hub
+        - name: HUB_PORT_4444_TCP_PORT
+          value: "4444"

@@ -17,7 +17,13 @@
 `kind create cluster --name my-cluster --config my-cluster.yaml`
 
 # Check the cluster info
-`kubectl cluster-info`
+`kubectl cluster-info --context kind-local-cluster`
 
 # Check the nodes with kubectl
 `kubectl get nodes -o wide`
+
+# Set context
+`kubectl config use-context kind-local-cluster`
+
+# check the context
+`kubectl config current-context`
