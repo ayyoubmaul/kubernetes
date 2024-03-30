@@ -27,3 +27,6 @@
 
 # check the context
 `kubectl config current-context`
+
+
+![Simple K8s](https://github.com/ayyoubmaul/kubernetes/assets/74217351/4965d156-e137-4d0d-984d-4d1f0db53b9a)
